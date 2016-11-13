@@ -11,6 +11,22 @@ Description: Minivan task
 """
 
 def mod1(hr, ld, rd, cl, ml, li, lo, ri, ro, gs):
+    """
+    This function prints whether a specified sequence of controls is valid or not for a minivan's locking configurations
+    Args:
+        hr = Header Record
+        ld = Left Dashboard switch (0 or 1)
+        rd = Right Dashboard switch (0 or 1)
+        cl = Child Lock switch (0 or 1)
+        ml = Master unLock switch (0 or 1)
+        li = Left Inside handle (0 or 1)
+        lo = Left Oustide handle (0 or 1)
+        ri = Right Inside handle (0 or 1)
+        ro = Right Outside handle (0 or 1)
+        gs = Gear Shift position (P, N, D, 1, 2, 3 or R)
+    Returns:
+        Nothing
+    """
     print("Heading Record " + str(hr) + ":")
     print("Left dashboard switch (0 or 1): " + str(ld))
     print("Right dashboard switch (0 or 1): " + str(rd))
@@ -22,26 +38,26 @@ def mod1(hr, ld, rd, cl, ml, li, lo, ri, ro, gs):
     print("Right outside handle (0 or 1): " + str(ro))
     print("Gear shift position (P, N, D, 1, 2, 3 or R): " + gs)
 
-    if gs != 'P' or gs != 'N' or gs != 'D' or gs != 'R' or gs != 1 or gs != 2 or gs != 3:
+    lOpen = False
+    rOpen = False
+
+    if gs != 'P' and gs != 'N' and gs != 'D' and gs != 'R' and gs != 1 and gs != 2 and gs != 3:
         print("Invalid Record: Both doors stay closed.")
-        exit(1)
+        return
 
     if gs != 'P':
         print("Both doors stay closed.")
-        exit(1)
+        return
 
     if ml != 1:
         print("Both doors stay closed.")
-        exit(1)
+        return
 
     #Check for dashboard switches
     if rd == 1 and ld == 1:
         print("Both doors open.")
-        exit(0)
+        return
         
-    lOpen = False
-    rOpen = False
-
     elif rd == 1:
         rOpen = True
         
@@ -65,22 +81,24 @@ def mod1(hr, ld, rd, cl, ml, li, lo, ri, ro, gs):
     #Print results
     if lOpen == True and rOpen == True:
         print("Both doors open.")
-        exit(0)
+        return
     elif lOpen == True and rOpen == False:
         print("Left door is open.")
-        exit(0)
+        return
     elif lOpen == False and rOpen == True:
         print("Right door is open.")
-        exit(0)
+        return
     else:
         print("Both doors stay closed.")
-        exit(1)
+        return
 
 
 
 def main():
-   mod1(1, 1, 0, 0, 1, 0, 1, 0, 0, 'E') 
-   pass
+    mod1(1, 0, 1, 0, 1, 0, 1, 0, 0, 'P')
+    mod1(2, 1, 0, 0, 1, 0, 1, 0, 0, 'D')
+    mod1(3, 1, 0, 0, 1, 0, 1, 0, 0, 'E') 
+    pass
 
 if __name__ == "__main__":
     main()
